@@ -48,8 +48,17 @@ func TestApp(t *testing.T) {
 	if _, err := Default.App(0); err != nil {
 		t.Fatal(err)
 	}
+	if _, err := Default.AppWithType(0, ""); err != nil {
+		t.Fatal(err)
+	}
 	// Credit-Control applications.
 	if _, err := Default.App(4); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := Default.AppWithType(4, "auth"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := Default.AppWithType(3, "acct"); err != nil {
 		t.Fatal(err)
 	}
 }

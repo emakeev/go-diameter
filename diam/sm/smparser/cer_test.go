@@ -129,7 +129,7 @@ func TestCER_AcctNotAuthAppID(t *testing.T) {
 	m.NewAVP(avp.OriginStateID, avp.Mbit, 0, datatype.Unsigned32(1))
 	m.NewAVP(avp.AuthApplicationID, avp.Mbit, 0, datatype.Unsigned32(1001))
 	cer := new(CER)
-	_, err := cer.Parse(m, Client)
+	_, err := cer.Parse(m, Server)
 	if err == nil {
 		t.Fatal("Broken CER was parsed with no errors")
 	}
@@ -179,7 +179,7 @@ func TestCER_AuthNotAcctAppID(t *testing.T) {
 	m.NewAVP(avp.OriginStateID, avp.Mbit, 0, datatype.Unsigned32(1))
 	m.NewAVP(avp.AcctApplicationID, avp.Mbit, 0, datatype.Unsigned32(1002))
 	cer := new(CER)
-	_, err := cer.Parse(m, Client)
+	_, err := cer.Parse(m, Server)
 	if err == nil {
 		t.Fatal("Broken CER was parsed with no errors")
 	}

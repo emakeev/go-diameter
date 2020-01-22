@@ -47,6 +47,23 @@ func (p *Parser) App(code uint32) (*App, error) {
 	return app, nil
 }
 
+// AppWithType returns a dictionary application for the given application code and Type
+// if exists. AppWithType must never be called concurrently with LoadFile or Load.
+func (p *Parser) AppWithType(code uint32, typ string) (*App, error) {
+	app := p.appcodetype[appCodeTypeIdx{code, typ}]
+	if app == nil {
+		if len(typ) > 0 {
+			app = p.appcodetype[appCodeTypeIdx{code, ""}]
+			if app == nil {
+				return nil, ErrApplicationUnsupported
+			}
+		} else {
+			return nil, ErrApplicationUnsupported
+		}
+	}
+	return app, nil
+}
+
 // ErrApplicationUnsupported indicates that the application requested
 // does not exist in the dictionary Parser object.
 var ErrApplicationUnsupported = errors.New("application unsupported")

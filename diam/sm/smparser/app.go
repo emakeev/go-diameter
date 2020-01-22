@@ -140,7 +140,7 @@ func (app *Application) validate(d *dict.Parser, appType uint32, appAVP *diam.AV
 		app.id = append(app.id, id)
 		return nil, nil
 	}
-	avp, err := d.App(id)
+	avp, err := d.AppWithType(id, typ)
 	if err != nil {
 		//TODO Log informational message to console?
 	} else if len(avp.Type) > 0 && avp.Type != typ {
